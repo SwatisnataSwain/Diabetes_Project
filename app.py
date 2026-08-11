@@ -25,7 +25,7 @@ new_data=pd.DataFrame ({
     "DiabetesPedigreeFunction":[dpf],
     "Age":[age]
 })
-model = load("model_dir\diabetes_model.joblib")
+model = load("diabetes_model.joblib")
 if st.button("Predict"):
     p=model.predict(new_data)
     st.success(p)
