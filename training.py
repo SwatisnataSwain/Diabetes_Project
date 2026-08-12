@@ -7,10 +7,12 @@ from sklearn.metrics import confusion_matrix,accuracy_score,precision_score,reca
 import matplotlib as plt
 import seaborn as sns
 from sklearn.pipeline import Pipeline
-from joblib import dump,load
+from joblib import dump
 
+# DATASET_NAME ="diabetes.csv"
+# MODEL_PA
 
-df = pd.read_csv(r"C:\Users\Swati\OneDrive\Desktop\PYTHON\Diabetes_Project\diabetes.csv")
+df = pd.read_csv("diabetes.csv")
 
 cols = ["Glucose","BloodPressure","SkinThickness","Insulin","BMI"]
 for i in cols:
