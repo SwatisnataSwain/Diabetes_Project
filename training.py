@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 from joblib import dump
 
 # DATASET_NAME ="diabetes.csv"
-# MODEL_PA
+# MODEL_PATH
 
 df = pd.read_csv("diabetes.csv")
 
