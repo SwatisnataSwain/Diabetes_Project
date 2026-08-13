@@ -8,11 +8,19 @@ import matplotlib as plt
 import seaborn as sns
 from sklearn.pipeline import Pipeline
 from joblib import dump
+import os
+from dotenv import load_dotenv
 
-# DATASET_NAME ="diabetes.csv"
-# MODEL_PATH
+load_dotenv()
 
-df = pd.read_csv("diabetes.csv")
+
+DATASET_NAME =os.getenv("DATASET_NAME")
+MODEL_PATH = os.getenv("MODEL_PATH")
+TEST_SIZE = float(os.getenv("TEST_SIZE"))
+RANDOM_STATE = int(os.getenv("RANDOM_STATE")) 
+TARGET_COL = os.getenv("TARGET_COL")
+
+df = pd.read_csv(DATASET_NAME)
 
 cols = ["Glucose","BloodPressure","SkinThickness","Insulin","BMI"]
 for i in cols:
@@ -24,8 +32,8 @@ print(df.isnull().sum())
 print(df.fillna(df.mean(numeric_only=True),inplace=True))
 
 
-X = df.drop(columns="Outcome")
-y = df["Outcome"]
+X = df.drop(columns=TARGET_COL)
+y = df[TARGET_COL]
 print("Shape Dataset -> ", df.shape)
 print("Shape X -> ", X.shape)
 print("Shape y -> ", y.shape)
@@ -43,8 +51,9 @@ print(check_ratio(y))
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
-    test_size=0.2,
-    random_state=42,
+    test_size=TEST_SIZE,
+    random_state=RANDOM_STATE,
+    stratify=y
 )
 
 d = {
@@ -62,4 +71,4 @@ pipeline = Pipeline([
 
 print(pipeline.fit(X_train,y_train))
 
-dump(pipeline,"model_dir/diabetes_model.joblib")
+dump(pipeline,MODEL_PATH)
